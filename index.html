@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" href="favicon.png">
 		<link rel="stylesheet" href="css/style.css">
-		<title>Интернет-магазин</title>
+		<title>Продвинутый курс Javascript</title>
 </head>
 <body>
-	<div class="container">
-		<header>
-			<button class="btn-cart" type="button">Корзина</button>
-		</header>
-		<main>
-				<div class="products"></div>
-		</main>
-	</div>
+	<header>
+		<div class="container">
+			<h1 class="page-title">Урок 3. Асинхронные запросы</h1>
+			<details class="cart-dropdown">
+				<summary class="btn btn-cart">Корзина <span class="quantity">0</span></summary>
+				<div class="cart">
+					<ul class="cart-list"></ul>
+					<p class="cart-total">Итого: <span class="total">0</span></p>
+				</div>
+			</details>
+		</div>
+	</header>
+	<main>
+		<div class="container">
+			<div class="products"></div>
+		</div>
+	</main>
 	<script src="js/main.js"></script>
 </body>
 </html>
