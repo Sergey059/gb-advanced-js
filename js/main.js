@@ -1,9 +1,10 @@
+'use strict'
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
 class ProductList{
 	constructor(container='.products'){
 		this.container = container;
-		this.goods = []//массив товаров из JSON документа
+		this.goods = [];//массив товаров из JSON документа
 		this.#getProducts()
 			.then(data => { //data - объект js
 				this.goods = data;
@@ -47,13 +48,11 @@ class ProductItem{
 class Cart{
 	constructor(container='.cart-list'){
 		this.container = container;
-		this.goodsCart = []
+		this.goods = []
 		this.#getCartProducts()
 			.then(data => {
-				this.goodsCart = data;
+				this.goods = data;
 				this.render();
-				this.quantityProductsCart();
-				this.totalPriceCart()
 			});
 	}
 	#getCartProducts(){
@@ -63,10 +62,12 @@ class Cart{
 	}
 	render(){
 		const blockCart = document.querySelector(this.container);
-		for(let product of this.goodsCart.contents){
+		for(let product of this.goods.contents){
 			const itemCart = new CartItem(product);
 			blockCart.insertAdjacentHTML("beforeend", itemCart.render());
 		}
+		this.quantityProductsCart();
+		this.totalPriceCart();
 	}
 	//добавления товара в корзину
 	addProductToCart() {}
@@ -81,7 +82,7 @@ class Cart{
 	totalPriceCart() {
 		let totalPrice = document.querySelector('.total'); 
 		let sum = 0;
-		for(let product of this.goodsCart.contents){
+		for(let product of this.goods.contents){
 			sum += product.price * product.quantity;
 		}
 		totalPrice.textContent = `${sum} ₽`;
