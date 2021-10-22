@@ -16,57 +16,43 @@
 				<h1 class="page-title">Урок 6. Компоненты Vue.js</h1>
 				<div class="top-line">
 					<div class="logo">E-shop</div>
-					<form action="#" class="search-form" @submit.prevent="filter">
-						<input type="text" class="search-field" v-model="userSearch">
-						<button class="btn btn-search" type="submit">
-							<i class="fas fa-search"></i>
-						</button>
-					</form>
+
+					<search
+						:value="userSearch"
+						:filter="filter"
+						>
+					</search>
+
 					<button class="btn btn-cart" type="button" @click="show=!show">
 						<i class="fas fa-shopping-basket"></i>
-						<span class="quantity">{{productsCart.length}}</span>
+						<span class="quantity">{{cartItems.length}}</span>
 					</button>
-					<div class="cart" v-show="show">
-						<p class="cart-empty" v-if="!productsCart.length">В корзине нет товаров</p>
-						<ul class="cart-list">
-							<li class="cart-item" v-for = "product of productsCart">
-								<a href="#" class="cart-link">
-									<img :src="imgCatalog" :alt="product.product_name" class="cart-img">
-									<div class="cart-desc">
-										<h4 class="cart-title">{{ product.product_name }}</h4>
-										<div class="cart-price-box">
-											<p class="cart-price">{{ product.price }} ₽</p>
-											<p class="cart-quantity">{{ product.quantity }}</p>
-										</div>
-									</div>
-								</a>
-								<button class="btn delete-btn" @click="remove(product)">&#10006;</button>
-							</li>
-						</ul>
-						<p class="cart-total">Итого: 
-							<span class="total">{{ totalPrice }}</span>
-						</p>
-					</div>
+
+					<cart 
+						:cart-items="cartItems"
+						:img="imgCatalog"
+						:visibility="show"
+						@remove="remove">
+					</cart>
+					
 				</div>
 			</div>
 		</header>
 		<main>
 			<div class="container">
-				<div class="products">
-					<div class="product-item" v-for="product of filtered" :key="product.id_product">
-						<img :src="imgCatalog" :alt="product.product_name" class="product-img">
-						<div class="product-desc">
-							<h3 class="product-title">{{product.product_name}}</h3>
-							<p class="product-price">{{product.price}} $</p>
-							<button class="btn buy-btn" @click="addProduct(product)">Купить</button>
-						</div>
-					</div>
-				</div>
+				<products 
+					:products="filtered"
+					:img="imgCatalog"
+					@add-product="addProduct">
+				</products>
 			</div>
 		</main>
 	</div>
 	<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="js/SearchForm.js"></script>
+	<script src="js/ProductComponent.js"></script>
+	<script src="js/CartComponent.js"></script>
 	<script src="js/main.js"></script>
 </body>
 </html>

@@ -8,21 +8,21 @@ const app = new Vue({
 		cartUrl: '/getBasket.json',
 		products: [],
 		filtered: [],
-		productsCart: [],
+		cartItems: [],
 		imgCatalog: 'https://via.placeholder.com/200x150',
 		userSearch: '',
-		show: false
+		show: false,
+		error: false
 	},
 	computed: {
 		totalPrice() {
-			return this.productsCart.reduce((acc, val) => acc + val.quantity * val.price, 0);
+			return this.cartItems.reduce((acc, val) => acc + val.quantity * val.price, 0);
 		},
 	},
 	methods: {
 		filter(){
 			const regexp = new RegExp(this.userSearch, 'i');
 			this.filtered = this.products.filter(product => regexp.test(product.product_name));
-			console.log(this.filtered);
 		},
 		getJson(url){
 			return fetch(url)
@@ -33,12 +33,12 @@ const app = new Vue({
 			this.getJson(`${API}/addToBasket.json`)
 			.then(data => {
 				if(data.result === 1){
-					let find = this.productsCart.find(el => el.id_product === product.id_product);
+					let find = this.cartItems.find(el => el.id_product === product.id_product);
 					if(find){
 						find.quantity++;
 					} else {
 						const prod = Object.assign({quantity: 1}, product);
-						this.productsCart.push(prod)
+						this.cartItems.push(prod)
 					}
 				}
 			})
@@ -50,7 +50,7 @@ const app = new Vue({
 						if(product.quantity>1){
 							product.quantity--;
 						} else {
-							this.productsCart.splice(this.productsCart.indexOf(product), 1);
+							this.cartItems.splice(this.cartItems.indexOf(product), 1);
 						}
 					}
 				})
@@ -60,7 +60,7 @@ const app = new Vue({
 		this.getJson(`${API + this.cartUrl}`)
 		.then(data => {
 			for(let el of data.contents){
-				this.productsCart.push(el);
+				this.cartItems.push(el);
 			}
 		})
 		this.getJson(`${API + this.catalogUrl}`)
