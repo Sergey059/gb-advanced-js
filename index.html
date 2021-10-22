@@ -1,19 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" href="favicon.png">
+		<link rel="stylesheet" href="css/normalize.css">
 		<link rel="stylesheet" href="css/style.css">
-		<title>Интернет-магазин</title>
+		<title>Продвинутый курс Javascript</title>
 </head>
 <body>
-	<div class="container">
+	<div id="app">
 		<header>
-			<button class="btn-cart" type="button">Корзина</button>
+			<div class="container">
+				<h1 class="page-title">Урок 6. Компоненты Vue.js</h1>
+				<div class="top-line">
+					<div class="logo">E-shop</div>
+
+					<search :filter="filter"></search>
+
+					<button class="btn btn-cart" type="button" @click="show=!show">
+						<i class="fas fa-shopping-basket"></i>
+						<span class="quantity">{{cartItems.length}}</span>
+					</button>
+
+					<cart 
+						:cart-items="cartItems"
+						:img="imgCatalog"
+						:visibility="show"
+						@remove="remove">
+					</cart>
+					
+				</div>
+			</div>
 		</header>
 		<main>
-				<div class="products"></div>
+			<div class="container">
+				<products 
+					:products="filtered"
+					:img="imgCatalog"
+					@add-product="addProduct">
+				</products>
+			</div>
 		</main>
 	</div>
+	<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js" integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="js/SearchForm.js"></script>
+	<script src="js/ProductComponent.js"></script>
+	<script src="js/CartComponent.js"></script>
 	<script src="js/main.js"></script>
 </body>
 </html>
