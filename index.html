@@ -22,12 +22,30 @@
 							<i class="fas fa-search"></i>
 						</button>
 					</form>
-					<div class="cart">
-						<button class="btn btn-cart" type="button">
-							<i class="fas fa-shopping-basket"></i>
-							<span class="quantity">10</span>
-						</button>
-						<div class="cart-list invisible"></div>
+					<button class="btn btn-cart" type="button" @click="show=!show">
+						<i class="fas fa-shopping-basket"></i>
+						<span class="quantity">{{productsCart.length}}</span>
+					</button>
+					<div class="cart" v-show="show">
+						<p class="cart-empty" v-if="!productsCart.length">В корзине нет товаров</p>
+						<ul class="cart-list">
+							<li class="cart-item" v-for = "product of productsCart">
+								<a href="#" class="cart-link">
+									<img :src="imgCatalog" :alt="product.product_name" class="cart-img">
+									<div class="cart-desc">
+										<h4 class="cart-title">{{ product.product_name }}</h4>
+										<div class="cart-price-box">
+											<p class="cart-price">{{ product.price }} ₽</p>
+											<p class="cart-quantity">{{ product.quantity }}</p>
+										</div>
+									</div>
+								</a>
+								<button class="btn delete-btn" @click="remove(product)">&#10006;</button>
+							</li>
+						</ul>
+						<p class="cart-total">Итого: 
+							<span class="total">{{ totalPrice }}</span>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -35,8 +53,8 @@
 		<main>
 			<div class="container">
 				<div class="products">
-					<div class="product-item" v-for="product of products" :key="product.id_product">
-						<img :src="imgCatalog" alt="Some img" class="product-img">
+					<div class="product-item" v-for="product of filtered" :key="product.id_product">
+						<img :src="imgCatalog" :alt="product.product_name" class="product-img">
 						<div class="product-desc">
 							<h3 class="product-title">{{product.product_name}}</h3>
 							<p class="product-price">{{product.price}} $</p>

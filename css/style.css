@@ -52,6 +52,7 @@ header{
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	position: relative;
 }
 .logo{
 	font-weight: bold;
@@ -98,6 +99,7 @@ header{
 	margin-bottom: 7px;
 }
 .btn-cart{
+	position: relative;
 	padding: 0;
 	border: none;
 	font-size: 24px;
@@ -126,14 +128,19 @@ header{
 	color: #fff;
 }
 .cart{
-	position: relative;
-}
-.cart-list{
 	padding: 5px 15px;
 	width: 260px;
 	position: absolute;
 	top: 48px;
 	right: 0;
+	background: #fff;
+	border: 1px solid #ccc;
+}
+.cart-empty{
+	padding: 40px 20px;
+	text-align: center;
+}
+.cart-list{
 	text-align: left;
 }
 .cart-item{
