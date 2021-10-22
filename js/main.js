@@ -20,14 +20,14 @@ const app = new Vue({
 		},
 	},
 	methods: {
-		filter(){
-			const regexp = new RegExp(this.userSearch, 'i');
-			this.filtered = this.products.filter(product => regexp.test(product.product_name));
-		},
 		getJson(url){
 			return fetch(url)
 				.then(result => result.json())
 				.catch(error => console.log(error))
+		},
+		filter(){
+			const regexp = new RegExp(this.userSearch, 'i');
+			this.filtered = this.products.filter(product => regexp.test(product.product_name));
 		},
 		addProduct(product){
 			this.getJson(`${API}/addToBasket.json`)
