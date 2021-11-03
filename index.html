@@ -17,30 +17,16 @@
 				<div class="top-line">
 					<div class="logo">E-shop</div>
 
-					<search :filter="filter"></search>
+					<filter_el></filter_el>
 
-					<button class="btn btn-cart" type="button" @click="show=!show">
-						<i class="fas fa-shopping-basket"></i>
-						<span class="quantity">{{cartItems.length}}</span>
-					</button>
-
-					<cart 
-						:cart-items="cartItems"
-						:img="imgCatalog"
-						:visibility="show"
-						@remove="remove">
-					</cart>
+					<cart ref="cart"></cart>
 					
 				</div>
 			</div>
 		</header>
 		<main>
 			<div class="container">
-				<products 
-					:products="filtered"
-					:img="imgCatalog"
-					@add-product="addProduct">
-				</products>
+				<products ref="products"></products>
 			</div>
 		</main>
 	</div>
